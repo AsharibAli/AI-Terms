@@ -141,21 +141,23 @@ export function AITermsLearning() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4 font-mono">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-2 sm:p-4 font-mono">
       {/* Header */}
-      <div className="text-center mb-8">
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <BookOpen className="w-8 h-8 text-black" />
-          <h1 className="text-3xl font-bold text-black tracking-tight">AI Terms Everyone Should Know</h1>
+      <div className="text-center mb-4 sm:mb-8 px-2">
+        <div className="flex items-center justify-center gap-2 mb-2 sm:mb-4">
+          <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-black" />
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-black tracking-tight">
+            AI Terms Everyone Should Know
+          </h1>
         </div>
-        <p className="text-gray-600 text-sm">Click the card to flip • Use arrows to navigate</p>
+        <p className="text-gray-600 text-xs sm:text-sm">Click the card to flip • Use arrows to navigate</p>
       </div>
 
       {/* Card Container */}
-      <div className="perspective-1000 mb-8">
+      <div className="perspective-1000 mb-4 sm:mb-8 w-full max-w-[500px] px-2">
         <div
           className={`
-      w-[500px] h-96 cursor-pointer transition-all duration-700 ease-out
+      w-full h-64 sm:h-80 md:h-96 cursor-pointer transition-all duration-700 ease-out
       ${isFlipped ? "[transform:rotateY(180deg)]" : ""}
     `}
           style={{
@@ -166,21 +168,23 @@ export function AITermsLearning() {
           {/* Front Side */}
           <Card
             className={`
-  absolute inset-0 w-full h-full border-4 border-gray-800 rounded-xl shadow-2xl
+  absolute inset-0 w-full h-full border-2 sm:border-4 border-gray-800 rounded-lg sm:rounded-xl shadow-xl sm:shadow-2xl
   bg-gradient-to-br from-white to-gray-50
   ${isFlipped ? "opacity-0" : "opacity-100"}
 `}
             style={{
               backfaceVisibility: "hidden",
-              boxShadow: "inset 0 0 0 2px #f3f4f6, 0 8px 32px rgba(0,0,0,0.12)",
+              boxShadow: "inset 0 0 0 1px #f3f4f6, 0 4px 16px rgba(0,0,0,0.08)",
               borderStyle: "solid",
             }}
           >
-            <CardContent className="w-full h-full p-8 flex flex-col justify-center items-center bg-transparent relative">
-              <div className="absolute inset-4 border border-gray-200 rounded-lg opacity-30"></div>
+            <CardContent className="w-full h-full p-4 sm:p-6 md:p-8 flex flex-col justify-center items-center bg-transparent relative">
+              <div className="absolute inset-2 sm:inset-4 border border-gray-200 rounded-md sm:rounded-lg opacity-30"></div>
               <div className="text-center">
-                <h2 className="text-4xl font-bold text-black mb-4 leading-tight">{currentTerm.term}</h2>
-                <div className="text-xs text-gray-400 mt-8">Click to see definition</div>
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-2 sm:mb-4 leading-tight break-words">
+                  {currentTerm.term}
+                </h2>
+                <div className="text-xs text-gray-400 mt-4 sm:mt-8">Click to see definition</div>
               </div>
             </CardContent>
           </Card>
@@ -188,23 +192,27 @@ export function AITermsLearning() {
           {/* Back Side */}
           <Card
             className={`
-  absolute inset-0 w-full h-full border-4 border-gray-800 rounded-xl shadow-2xl
+  absolute inset-0 w-full h-full border-2 sm:border-4 border-gray-800 rounded-lg sm:rounded-xl shadow-xl sm:shadow-2xl
   bg-gradient-to-br from-gray-50 to-gray-100
   ${isFlipped ? "opacity-100" : "opacity-0"}
 `}
             style={{
               backfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
-              boxShadow: "inset 0 0 0 2px #e5e7eb, 0 8px 32px rgba(0,0,0,0.12)",
+              boxShadow: "inset 0 0 0 1px #e5e7eb, 0 4px 16px rgba(0,0,0,0.08)",
               borderStyle: "solid",
             }}
           >
-            <CardContent className="w-full h-full p-8 flex flex-col justify-center items-center bg-transparent relative">
-              <div className="absolute inset-4 border border-gray-300 rounded-lg opacity-30"></div>
+            <CardContent className="w-full h-full p-4 sm:p-6 md:p-8 flex flex-col justify-center items-center bg-transparent relative">
+              <div className="absolute inset-2 sm:inset-4 border border-gray-300 rounded-md sm:rounded-lg opacity-30"></div>
               <div className="text-center">
-                <div className="text-sm font-semibold text-gray-500 mb-4 uppercase tracking-wider">Definition</div>
-                <p className="text-xl text-black leading-relaxed font-medium">{currentTerm.definition}</p>
-                <div className="text-xs text-gray-400 mt-8">Click to see term</div>
+                <div className="text-xs sm:text-sm font-semibold text-gray-500 mb-2 sm:mb-4 uppercase tracking-wider">
+                  Definition
+                </div>
+                <p className="text-sm sm:text-lg md:text-xl text-black leading-relaxed font-medium px-2">
+                  {currentTerm.definition}
+                </p>
+                <div className="text-xs text-gray-400 mt-4 sm:mt-8">Click to see term</div>
               </div>
             </CardContent>
           </Card>
@@ -212,18 +220,18 @@ export function AITermsLearning() {
       </div>
 
       {/* Navigation */}
-      <div className="flex items-center gap-6 mb-6">
+      <div className="flex items-center gap-3 sm:gap-6 mb-4 sm:mb-6 px-2">
         <Button
           variant="outline"
-          size="lg"
+          size="sm"
           onClick={goToPrevious}
-          className="border-2 border-black hover:bg-black hover:text-white transition-colors"
+          className="border-2 border-black hover:bg-black hover:text-white transition-colors sm:size-lg"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
         </Button>
 
         <div className="text-center">
-          <div className="text-2xl font-bold text-black">
+          <div className="text-lg sm:text-xl md:text-2xl font-bold text-black">
             {currentIndex + 1} / {aiTerms.length}
           </div>
           <div className="text-xs text-gray-500 mt-1">Card Progress</div>
@@ -231,16 +239,16 @@ export function AITermsLearning() {
 
         <Button
           variant="outline"
-          size="lg"
+          size="sm"
           onClick={goToNext}
-          className="border-2 border-black hover:bg-black hover:text-white transition-colors"
+          className="border-2 border-black hover:bg-black hover:text-white transition-colors sm:size-lg"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
         </Button>
       </div>
 
       {/* Progress Bar */}
-      <div className="w-[500px] bg-gray-200 rounded-full h-2 border border-black">
+      <div className="w-full max-w-[500px] bg-gray-200 rounded-full h-1.5 sm:h-2 border border-black mx-2">
         <div
           className="bg-black h-full rounded-full transition-all duration-300"
           style={{
@@ -250,7 +258,7 @@ export function AITermsLearning() {
       </div>
 
       {/* Footer */}
-      <div className="mt-8 text-center text-sm text-gray-600">
+      <div className="mt-4 sm:mt-8 text-center text-xs sm:text-sm text-gray-600 px-2">
         <p>
           Built with ❤️ by{" "}
           <a
