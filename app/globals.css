@@ -54,4 +54,21 @@ body {
   color: hsl(var(--foreground));
   background: hsl(var(--background));
   font-family: "Courier New", monospace;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+}
+
+/* Improve touch targets on mobile */
+@media (max-width: 640px) {
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Optimize text rendering on mobile */
+@media (max-width: 640px) {
+  .text-responsive {
+    font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+  }
 }
