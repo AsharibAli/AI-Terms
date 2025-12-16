@@ -1,45 +1,151 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { ChevronLeft, ChevronRight, BookOpen } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ChevronLeft, ChevronRight, BookOpen } from "lucide-react";
+import { KeyboardNavigation } from "@/components/keyboard-navigation";
 
 interface AITerm {
-  id: number
-  term: string
-  definition: string
-  category?: string
+  id: number;
+  term: string;
+  definition: string;
+  category?: string;
 }
 
 const aiTerms: AITerm[] = [
-  { id: 1, term: "AGI", definition: "AI that can think like humans.", category: "General AI" },
-  { id: 2, term: "CoT (Chain of Thought)", definition: "AI thinking step-by-step.", category: "Reasoning" },
-  { id: 3, term: "AI Agents", definition: "Autonomous programs that make decisions.", category: "Systems" },
-  { id: 4, term: "AI Wrapper", definition: "Simplifies interaction with AI models.", category: "Tools" },
-  { id: 5, term: "AI Alignment", definition: "Ensuring AI follows human values.", category: "Ethics" },
-  { id: 6, term: "Fine-tuning", definition: "Improving AI with specific training data.", category: "Training" },
-  { id: 7, term: "Hallucination", definition: "When AI generates false information.", category: "Limitations" },
-  { id: 8, term: "AI Model", definition: "A trained system for a task.", category: "Core Concepts" },
-  { id: 9, term: "Chatbot", definition: "AI that simulates human conversation.", category: "Applications" },
-  { id: 10, term: "Compute", definition: "Processing power for AI models.", category: "Hardware" },
-  { id: 11, term: "Computer Vision", definition: "AI that understands images and videos.", category: "Applications" },
-  { id: 12, term: "Context", definition: "Information AI retains for better responses.", category: "Core Concepts" },
+  {
+    id: 1,
+    term: "AGI",
+    definition: "AI that can think like humans.",
+    category: "General AI",
+  },
+  {
+    id: 2,
+    term: "CoT (Chain of Thought)",
+    definition: "AI thinking step-by-step.",
+    category: "Reasoning",
+  },
+  {
+    id: 3,
+    term: "AI Agents",
+    definition: "Autonomous programs that make decisions.",
+    category: "Systems",
+  },
+  {
+    id: 4,
+    term: "AI Wrapper",
+    definition: "Simplifies interaction with AI models.",
+    category: "Tools",
+  },
+  {
+    id: 5,
+    term: "AI Alignment",
+    definition: "Ensuring AI follows human values.",
+    category: "Ethics",
+  },
+  {
+    id: 6,
+    term: "Fine-tuning",
+    definition: "Improving AI with specific training data.",
+    category: "Training",
+  },
+  {
+    id: 7,
+    term: "Hallucination",
+    definition: "When AI generates false information.",
+    category: "Limitations",
+  },
+  {
+    id: 8,
+    term: "AI Model",
+    definition: "A trained system for a task.",
+    category: "Core Concepts",
+  },
+  {
+    id: 9,
+    term: "Chatbot",
+    definition: "AI that simulates human conversation.",
+    category: "Applications",
+  },
+  {
+    id: 10,
+    term: "Compute",
+    definition: "Processing power for AI models.",
+    category: "Hardware",
+  },
+  {
+    id: 11,
+    term: "Computer Vision",
+    definition: "AI that understands images and videos.",
+    category: "Applications",
+  },
+  {
+    id: 12,
+    term: "Context",
+    definition: "Information AI retains for better responses.",
+    category: "Core Concepts",
+  },
   {
     id: 13,
     term: "Deep Learning",
     definition: "AI learning through layered neural networks.",
     category: "Machine Learning",
   },
-  { id: 14, term: "Embedding", definition: "Numeric representation of words for AI.", category: "Data Processing" },
-  { id: 15, term: "Explainability", definition: "How AI decisions are understood.", category: "Interpretability" },
-  { id: 16, term: "Foundation Model", definition: "Large AI model adaptable to tasks.", category: "Models" },
-  { id: 17, term: "Generative AI", definition: "AI that creates text, images, etc.", category: "Applications" },
-  { id: 18, term: "GPU", definition: "Hardware for fast AI processing.", category: "Hardware" },
-  { id: 19, term: "Ground Truth", definition: "Verified data AI learns from.", category: "Data" },
-  { id: 20, term: "Inference", definition: "AI making predictions on new data.", category: "Operations" },
-  { id: 21, term: "LLM (Large Language Model)", definition: "AI trained on vast text data.", category: "Models" },
-  { id: 22, term: "Machine Learning", definition: "AI improving from data experience.", category: "Core Concepts" },
+  {
+    id: 14,
+    term: "Embedding",
+    definition: "Numeric representation of words for AI.",
+    category: "Data Processing",
+  },
+  {
+    id: 15,
+    term: "Explainability",
+    definition: "How AI decisions are understood.",
+    category: "Interpretability",
+  },
+  {
+    id: 16,
+    term: "Foundation Model",
+    definition: "Large AI model adaptable to tasks.",
+    category: "Models",
+  },
+  {
+    id: 17,
+    term: "Generative AI",
+    definition: "AI that creates text, images, etc.",
+    category: "Applications",
+  },
+  {
+    id: 18,
+    term: "GPU",
+    definition: "Hardware for fast AI processing.",
+    category: "Hardware",
+  },
+  {
+    id: 19,
+    term: "Ground Truth",
+    definition: "Verified data AI learns from.",
+    category: "Data",
+  },
+  {
+    id: 20,
+    term: "Inference",
+    definition: "AI making predictions on new data.",
+    category: "Operations",
+  },
+  {
+    id: 21,
+    term: "LLM (Large Language Model)",
+    definition: "AI trained on vast text data.",
+    category: "Models",
+  },
+  {
+    id: 22,
+    term: "Machine Learning",
+    definition: "AI improving from data experience.",
+    category: "Core Concepts",
+  },
   {
     id: 23,
     term: "MCP (Model Context Protocol)",
@@ -52,10 +158,30 @@ const aiTerms: AITerm[] = [
     definition: "AI understanding human language.",
     category: "Applications",
   },
-  { id: 25, term: "Neural Network", definition: "AI model inspired by the brain.", category: "Architecture" },
-  { id: 26, term: "Parameters", definition: "AI's internal variables for learning.", category: "Technical" },
-  { id: 27, term: "Prompt Engineering", definition: "Crafting inputs to guide AI output.", category: "Techniques" },
-  { id: 28, term: "Reasoning Model", definition: "AI that follows logical thinking.", category: "Reasoning" },
+  {
+    id: 25,
+    term: "Neural Network",
+    definition: "AI model inspired by the brain.",
+    category: "Architecture",
+  },
+  {
+    id: 26,
+    term: "Parameters",
+    definition: "AI's internal variables for learning.",
+    category: "Technical",
+  },
+  {
+    id: 27,
+    term: "Prompt Engineering",
+    definition: "Crafting inputs to guide AI output.",
+    category: "Techniques",
+  },
+  {
+    id: 28,
+    term: "Reasoning Model",
+    definition: "AI that follows logical thinking.",
+    category: "Reasoning",
+  },
   {
     id: 29,
     term: "Reinforcement Learning",
@@ -68,11 +194,36 @@ const aiTerms: AITerm[] = [
     definition: "AI combining search with responses.",
     category: "Techniques",
   },
-  { id: 31, term: "Supervised Learning", definition: "AI trained on labeled data.", category: "Machine Learning" },
-  { id: 32, term: "TPU", definition: "Google's AI-specialized processor.", category: "Hardware" },
-  { id: 33, term: "Tokenization", definition: "Breaking text into smaller parts.", category: "Data Processing" },
-  { id: 34, term: "Training", definition: "Teaching AI by adjusting its parameters.", category: "Process" },
-  { id: 35, term: "Transformer", definition: "AI architecture for language processing.", category: "Architecture" },
+  {
+    id: 31,
+    term: "Supervised Learning",
+    definition: "AI trained on labeled data.",
+    category: "Machine Learning",
+  },
+  {
+    id: 32,
+    term: "TPU",
+    definition: "Google's AI-specialized processor.",
+    category: "Hardware",
+  },
+  {
+    id: 33,
+    term: "Tokenization",
+    definition: "Breaking text into smaller parts.",
+    category: "Data Processing",
+  },
+  {
+    id: 34,
+    term: "Training",
+    definition: "Teaching AI by adjusting its parameters.",
+    category: "Process",
+  },
+  {
+    id: 35,
+    term: "Transformer",
+    definition: "AI architecture for language processing.",
+    category: "Architecture",
+  },
   {
     id: 36,
     term: "Unsupervised Learning",
@@ -85,10 +236,30 @@ const aiTerms: AITerm[] = [
     definition: "AI-assisted coding via natural language prompts.",
     category: "Development",
   },
-  { id: 38, term: "Weights", definition: "Values that shape AI learning.", category: "Technical" },
-  { id: 39, term: "API", definition: "Interface for accessing AI services and models.", category: "Integration" },
-  { id: 40, term: "Bias", definition: "Unfair preferences in AI model decisions.", category: "Ethics" },
-  { id: 41, term: "Dataset", definition: "Collection of data used to train AI models.", category: "Data" },
+  {
+    id: 38,
+    term: "Weights",
+    definition: "Values that shape AI learning.",
+    category: "Technical",
+  },
+  {
+    id: 39,
+    term: "API",
+    definition: "Interface for accessing AI services and models.",
+    category: "Integration",
+  },
+  {
+    id: 40,
+    term: "Bias",
+    definition: "Unfair preferences in AI model decisions.",
+    category: "Ethics",
+  },
+  {
+    id: 41,
+    term: "Dataset",
+    definition: "Collection of data used to train AI models.",
+    category: "Data",
+  },
   {
     id: 42,
     term: "Algorithm",
@@ -101,47 +272,77 @@ const aiTerms: AITerm[] = [
     definition: "AI performing tasks without human intervention.",
     category: "Applications",
   },
-  { id: 44, term: "Classification", definition: "AI sorting data into different categories.", category: "Tasks" },
-  { id: 45, term: "Prediction", definition: "AI forecasting future outcomes from data.", category: "Tasks" },
+  {
+    id: 44,
+    term: "Classification",
+    definition: "AI sorting data into different categories.",
+    category: "Tasks",
+  },
+  {
+    id: 45,
+    term: "Prediction",
+    definition: "AI forecasting future outcomes from data.",
+    category: "Tasks",
+  },
   {
     id: 46,
     term: "Hyperparameters",
     definition: "Settings that control model training process.",
     category: "Configuration",
   },
-  { id: 47, term: "Latency", definition: "Time delay in AI model response.", category: "Performance" },
-  { id: 48, term: "Multimodal", definition: "AI handling text, images, and audio together.", category: "Capabilities" },
+  {
+    id: 47,
+    term: "Latency",
+    definition: "Time delay in AI model response.",
+    category: "Performance",
+  },
+  {
+    id: 48,
+    term: "Multimodal",
+    definition: "AI handling text, images, and audio together.",
+    category: "Capabilities",
+  },
   {
     id: 49,
     term: "Preprocessing",
     definition: "Preparing raw data for AI model training.",
     category: "Data Processing",
   },
-  { id: 50, term: "Recognition", definition: "AI identifying patterns in data or images.", category: "Capabilities" },
-]
+  {
+    id: 50,
+    term: "Recognition",
+    definition: "AI identifying patterns in data or images.",
+    category: "Capabilities",
+  },
+];
 
 export function AITermsLearning() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isFlipped, setIsFlipped] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isFlipped, setIsFlipped] = useState(false);
 
-  const currentTerm = aiTerms[currentIndex]
+  const currentTerm = aiTerms[currentIndex];
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : aiTerms.length - 1))
-    setIsFlipped(false)
-  }
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : aiTerms.length - 1));
+    setIsFlipped(false);
+  };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev < aiTerms.length - 1 ? prev + 1 : 0))
-    setIsFlipped(false)
-  }
+    setCurrentIndex((prev) => (prev < aiTerms.length - 1 ? prev + 1 : 0));
+    setIsFlipped(false);
+  };
 
   const flipCard = () => {
-    setIsFlipped(!isFlipped)
-  }
+    setIsFlipped(!isFlipped);
+  };
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-2 sm:p-4 font-mono">
+      <KeyboardNavigation
+        onPrevious={goToPrevious}
+        onNext={goToNext}
+        onFlip={flipCard}
+      />
       {/* Header */}
       <div className="text-center mb-4 sm:mb-8 px-2">
         <div className="flex items-center justify-center gap-2 mb-2 sm:mb-4">
@@ -150,7 +351,9 @@ export function AITermsLearning() {
             AI Terms Everyone Should Know
           </h1>
         </div>
-        <p className="text-gray-600 text-xs sm:text-sm">Click the card to flip • Use arrows to navigate</p>
+        <p className="text-gray-600 text-xs sm:text-sm">
+          Click the card to flip • Use arrows to navigate
+        </p>
       </div>
 
       {/* Card Container */}
@@ -184,7 +387,9 @@ export function AITermsLearning() {
                 <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-2 sm:mb-4 leading-tight break-words">
                   {currentTerm.term}
                 </h2>
-                <div className="text-xs text-gray-400 mt-4 sm:mt-8">Click to see definition</div>
+                <div className="text-xs text-gray-400 mt-4 sm:mt-8">
+                  Click to see definition
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -212,7 +417,9 @@ export function AITermsLearning() {
                 <p className="text-sm sm:text-lg md:text-xl text-black leading-relaxed font-medium px-2">
                   {currentTerm.definition}
                 </p>
-                <div className="text-xs text-gray-400 mt-4 sm:mt-8">Click to see term</div>
+                <div className="text-xs text-gray-400 mt-4 sm:mt-8">
+                  Click to see term
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -272,5 +479,5 @@ export function AITermsLearning() {
         </p>
       </div>
     </div>
-  )
+  );
 }
